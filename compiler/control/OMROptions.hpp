@@ -1492,6 +1492,7 @@ public:
       _edoRecompSizeThreshold = 0;
       _edoRecompSizeThresholdInStartupMode = 0;
       _catchBlockCounterThreshold = 0;
+      _nodeCountThresholdAtWarm=0;
 
       memset(_options, 0, sizeof(_options));
       memset(_disabledOptimizations, false, sizeof(_disabledOptimizations));
@@ -1729,6 +1730,8 @@ public:
    int32_t getBigCalleeThresholdForColdCallsAtWarm() const  {return _bigCalleeThresholdForColdCallsAtWarm;}
    int32_t getBigCalleeFrequencyCutoffAtWarm() const  {return _bigCalleeFreqCutoffAtWarm;}
    int32_t getBigCalleeHotOptThreshold() const        {return _bigCalleeHotOptThreshold;}
+   int32_t getNodeCountThresholdAtWarm() const        {return _nodeCountThresholdAtWarm;}
+
    int32_t getBigCalleeThresholdForColdCallsAtHot() const  {return _bigCalleeThresholdForColdCallsAtHot;}
    int32_t getBigCalleeFrequencyCutoffAtHot() const   {return _bigCalleeFreqCutoffAtHot;}
    int32_t getBigCalleeScorchingOptThreshold() const  {return _bigCalleeScorchingOptThreshold;}
@@ -2507,6 +2510,7 @@ protected:
    int32_t                     _inlinerVeryLargeCompiledMethodFaninThreshold; // for inlining
    int32_t                     _largeCompiledMethodExemptionFreqCutoff;
    int32_t                     _maxSzForVPInliningWarm;
+   int32_t                     _nodeCountThresholdAtWarm;
 
    int32_t                     _loopyAsyncCheckInsertionMaxEntryFreq;
 

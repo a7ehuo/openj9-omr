@@ -987,6 +987,7 @@ TR::OptionTable OMR::Options::_jitOptions[] = {
    {"minSleepTimeMsForCompThrottling=", "M<nnn>\tLower bound for sleep time during compilation throttling (ms)",
                                          TR::Options::setStaticNumeric, (intptr_t)&OMR::Options::_minSleepTimeMsForCompThrottling, 0, "F%d", NOT_IN_SUBSET },
    {"noAotSecondRunDetection", "M\tdo not do second run detection for AOT", SET_OPTION_BIT(TR_NoAotSecondRunDetection), "F", NOT_IN_SUBSET },
+   {"nodeCountThresholdAtWarm=", "O<nnn>\tnodeCountThreshold for warm compilation", TR::Options::set32BitNumeric, offsetof(OMR::Options, _nodeCountThresholdAtWarm), 0, "F%d"},
 #ifdef DEBUG
    {"noExceptions",       "C\tfail compilation for methods with exceptions",
         TR::Options::setDebug, (intptr_t)"noExceptions"},
@@ -2635,6 +2636,7 @@ OMR::Options::jitPreProcess()
    _bigCalleeThresholdForColdCallsAtHot = 500;
    _bigCalleeFreqCutoffAtWarm = 0;
    _bigCalleeHotOptThreshold = 600;
+
    _bigCalleeFreqCutoffAtHot = 40;
    _bigCalleeScorchingOptThreshold = 800;
 #if defined(TR_HOST_S390)
@@ -2684,6 +2686,8 @@ OMR::Options::jitPreProcess()
    _blockShufflingSequence = (char *)"S";
    _delayCompileWithCPUBurn = 0;
    _largeNumberOfLoops = 6500;
+
+   _nodeCountThresholdAtWarm = 3000;
 
    // The entry block is under this threshold in methods containing a block
    // expected to run >=100 times per method entry, which should be sure to

@@ -319,7 +319,13 @@ TR_InlinerBase::setInlineThresholds(TR::ResolvedMethodSymbol *callerSymbol)
 
    _callerWeightLimit -= size;
 
-   _nodeCountThreshold = (comp()->getOption(TR_NotCompileTimeSensitive) || comp()->getMethodHotness() >= hot ) ? 16000 : 3000;
+   _nodeCountThreshold = (comp()->getOption(TR_NotCompileTimeSensitive) || comp()->getMethodHotness() >= hot ) ? 16000 : comp()->getOptions()->getNodeCountThresholdAtWarm();
+
+   if (comp()->getOptions()->isAnyVerboseOptionSet())
+      {
+      TR_VerboseLog::writeLineLocked(TR_Vlog_INFO, "_nodeCountThreshold=%d %s\n", _nodeCountThreshold, comp()->signature());
+      }
+
    _methodInWarmBlockByteCodeSizeThreshold = _methodByteCodeSizeThreshold = 155;
    _methodInColdBlockByteCodeSizeThreshold = 30;
    _maxInliningCallSites = 4095;
